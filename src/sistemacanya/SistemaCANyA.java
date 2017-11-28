@@ -13,6 +13,7 @@ public class SistemaCANyA {
        inicio.setVisible(true);//muestra el formulario
        
        //Mensaje de Catherin
+       // hola
     }
     
 }
