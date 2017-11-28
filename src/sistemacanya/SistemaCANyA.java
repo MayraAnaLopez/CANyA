@@ -11,6 +11,8 @@ public class SistemaCANyA {
     public static void main(String[] args) {
        vistaInicioSesion inicio= new vistaInicioSesion();//instanciar una clase o crear un objeto
        inicio.setVisible(true);//muestra el formulario
+       
+       //Mensaje de Catherin
     }
     
 }
