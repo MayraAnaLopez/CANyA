@@ -1,0 +1,8 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix} Sistema de Control de Asistencia y Notas
+${licensePrefix} 111Mil Programadores
+<#if licenseLast??>
+${licenseLast}
+</#if>
