@@ -32,6 +32,11 @@ public admCurso(){//creamos el constructor de la clase admCurso
     ListaCurso = new ArrayList<>();// creamos una instancia de la lista
     
 }
+
+    public ArrayList<Curso> getListaCurso() {
+        return ListaCurso;
+    }
+
 public ArrayList<Curso> ListaCurso(){//creamos un metodo para obtener la lista de curso de la base de datos
     try {
         st = ConexCurso.getcon().createStatement();// obtenemos los datos de coneccion
@@ -48,6 +53,19 @@ public ArrayList<Curso> ListaCurso(){//creamos un metodo para obtener la lista d
         Logger.getLogger(admCurso.class.getName()).log(Level.SEVERE, null, ex);
     }
     return ListaCurso;
+}
+public void Agregar(Curso a){
+    try {
+        pst=ConexCurso.getcon().prepareStatement("insert into curso (id_curso, curso) values (?,?) ");
+        pst.setInt(1, a.getId_Curso());
+        pst.setString(2, a.getCurso());
+        pst.execute();
+        pst.close();
+        
+    } catch (SQLException ex) {
+        Logger.getLogger(admCurso.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
 }
 
 
