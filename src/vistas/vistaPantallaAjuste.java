@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 public class vistaPantallaAjuste extends javax.swing.JFrame {
     admCurso Ajuste= new admCurso ();
     DefaultTableModel modelo = new DefaultTableModel();
+    int codigo = 0;
     
     
   
@@ -46,6 +47,11 @@ public class vistaPantallaAjuste extends javax.swing.JFrame {
                 "Title 1", "Title 2"
             }
         ));
+        tblCurso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCursoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblCurso);
 
         btnAgregar.setText("Agregar");
@@ -56,8 +62,18 @@ public class vistaPantallaAjuste extends javax.swing.JFrame {
         });
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -108,14 +124,45 @@ public class vistaPantallaAjuste extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        
        String nombre = JOptionPane.showInputDialog("Ingrese el Curso");
+       if(nombre !=null){
+          
        Curso curso= new Curso(0,nombre );
        Ajuste.Agregar(curso);
        modelo.setRowCount(0);
        Ajuste.getListaCurso().clear();
        cargarTabla();
+    }    
+        
+       
        
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void tblCursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCursoMouseClicked
+        codigo =Integer.parseInt(modelo.getValueAt(tblCurso.getSelectedRow(), 0).toString()) ;
+        
+        
+    }//GEN-LAST:event_tblCursoMouseClicked
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        if(codigo != 0){
+        Ajuste.eliminar(codigo);
+        codigo=0; 
+        cargarTabla();
+        }
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        if(codigo!=0){
+            String curso= JOptionPane.showInputDialog("Ingrese el nuevo nombre");
+            if (curso!=null){
+            Ajuste.modificar(codigo, curso);
+            cargarTabla();
+        }
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     
    
@@ -132,6 +179,7 @@ public class vistaPantallaAjuste extends javax.swing.JFrame {
     public void cargarTabla(){ //definimos el metodo
           String[] datos = new String[2]; //creamos un array
           modelo.setRowCount(0);
+          Ajuste.ListaCurso().clear();
           for(Curso i:Ajuste.ListaCurso()){ //se utiliza para recorrer una lista
           datos[0]=String.valueOf(i.getId_Curso());
           datos[1]= i.getCurso();

@@ -67,9 +67,30 @@ public void Agregar(Curso a){
     }
     
 }
+public void eliminar(int codigo){
+    
+    try {
+        pst=ConexCurso.getcon().prepareStatement("delete from curso where id_curso=" + codigo);
+        pst.execute();
+        pst.close();
+    } catch (SQLException ex) {
+        Logger.getLogger(admCurso.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+}
 
-
-
+public void modificar(int codigo, String curso){
+    try {
+        pst=ConexCurso.getcon().prepareStatement("update curso set curso=? where id_curso="+ codigo);
+        pst.setString(1, curso);
+        pst.execute();
+        pst.close();
+        
+    } catch (SQLException ex) {
+        Logger.getLogger(admCurso.class.getName()).log(Level.SEVERE, null, ex);
+    }
+   
+}
 
 
 
