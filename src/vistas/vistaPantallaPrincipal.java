@@ -49,6 +49,11 @@ public class vistaPantallaPrincipal extends javax.swing.JFrame {
 
         btnalumno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/iconEstudiante.png"))); // NOI18N
         btnalumno.setText("Alumnos");
+        btnalumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnalumnoActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnalumno);
 
         btnprofesor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/iconProfesor.png"))); // NOI18N
@@ -91,6 +96,11 @@ public class vistaPantallaPrincipal extends javax.swing.JFrame {
        vistaPantallaAjuste ajuste = new vistaPantallaAjuste();
        ajuste.setVisible(true);
     }//GEN-LAST:event_btnajustesActionPerformed
+
+    private void btnalumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnalumnoActionPerformed
+        vistaPantallaAlumno alumno = new vistaPantallaAlumno();
+        alumno.setVisible(true);
+    }//GEN-LAST:event_btnalumnoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
