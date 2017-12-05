@@ -60,6 +60,11 @@ public class vistaPantallaAlumno extends javax.swing.JFrame {
         btnbuscar.setText("Buscar");
 
         btnagregar.setText("Agregar");
+        btnagregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnagregarActionPerformed(evt);
+            }
+        });
 
         btnmodificar.setText("Modificar");
 
@@ -137,6 +142,11 @@ public class vistaPantallaAlumno extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarActionPerformed
+        vistaPantallaAgregarAlumno nuevo = new vistaPantallaAgregarAlumno();
+        nuevo.setVisible(true);
+    }//GEN-LAST:event_btnagregarActionPerformed
 
    
 
