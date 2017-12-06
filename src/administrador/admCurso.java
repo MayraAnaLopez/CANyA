@@ -59,7 +59,10 @@ public int ObtenerCurso(String nombre){//creamos un metodo para obtener la lista
     try {
         st = ConexCurso.getcon().createStatement();// obtenemos los datos de coneccion
         rs = st.executeQuery("SELECT id_curso FROM Curso where curso = '"+ nombre + "'" );// consulta a la base de datos
-        id_curso = rs.getInt(1);
+        while (rs.next()){
+        id_curso = rs.getInt(1);    
+        }
+        
         } catch (SQLException ex) {
         Logger.getLogger(admCurso.class.getName()).log(Level.SEVERE, null, ex);
     }

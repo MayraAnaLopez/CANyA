@@ -4,7 +4,9 @@
  */
 package vistas;
 
+import administrador.admAlumno;
 import administrador.admCurso;
+import clases.Alumno;
 import clases.Curso;
 
 /**
@@ -14,14 +16,47 @@ import clases.Curso;
 public class vistaPantallaAgregarAlumno extends javax.swing.JFrame {
 
     admCurso curso = new admCurso();
+    admAlumno alumno = new admAlumno();
+    int codigo;
+    String accion = "";
+    Alumno alu= new Alumno();
+
+    public void setAccion(String accion) {
+        this.accion = accion;
+    }
+
+    public String getAccion() {
+        return accion;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+    
+
+    
+    
     public vistaPantallaAgregarAlumno() {
         initComponents();
-        cargarCombo();
+     
     }
     public void cargarCombo(){
         for(Curso i:curso.ListaCurso()){
             cmbCurso.addItem(i.getCurso());
             System.out.println(i.getCurso());
+        }
+    }
+    public void cargarDatos(){
+         if(accion.equals("Boton Modificar")){
+             alu=alumno.ObtenerAlumno(codigo);
+            txtDniAlumno.setText(String.valueOf(codigo));
+            txtNombreAlumno.setText(alu.getNombre());
+            txtEdadAlumno.setText(String.valueOf(alu.getEdad()));
+             for (Curso x : curso.ListaCurso()) {
+                 if (x.getId_Curso()==Integer.parseInt(alu.getId_Curso())){
+                     cmbCurso.setSelectedItem(x.getCurso());
+                 }
+             }
         }
     }
    
@@ -56,8 +91,15 @@ public class vistaPantallaAgregarAlumno extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setText("DNI");
+
+        txtDniAlumno.setEnabled(false);
 
         jLabel2.setText("Nombre");
 
@@ -66,6 +108,11 @@ public class vistaPantallaAgregarAlumno extends javax.swing.JFrame {
         jLabel4.setText("Seleccionar Curso");
 
         btnAceptar.setText("ACEPTAR");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("CANCELAR");
 
@@ -130,11 +177,37 @@ public class vistaPantallaAgregarAlumno extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        int dni_alumno =Integer.parseInt(txtDniAlumno.getText());
+        String nombre = txtNombreAlumno.getText();
+        Byte edad= Byte.parseByte(txtEdadAlumno.getText());
+        int cur= this.curso.ObtenerCurso(cmbCurso.getSelectedItem().toString());
+        
+        Alumno alumno2 = new Alumno(dni_alumno, nombre, edad, String.valueOf(cur));
+        if (btnAceptar.getText().equals("ACEPTAR")){
+            this.alumno.Agregar(alumno2);
+            this.setVisible(false);
+        }else if(btnAceptar.getText().equals("ACTUALIZAR")){
+            this.alumno.modificar(alumno2);
+            this.setVisible(false);
+        }
+        
+        vistaPantallaAlumno pantalla = new vistaPantallaAlumno();
+        pantalla.setVisible(true);
+        
+        
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+          cargarCombo();
+       cargarDatos();
+    }//GEN-LAST:event_formWindowOpened
+
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAceptar;
+    public javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JComboBox<String> cmbCurso;
     private javax.swing.JLabel jLabel1;

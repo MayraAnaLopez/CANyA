@@ -55,6 +55,11 @@ public class vistaPantallaAlumno extends javax.swing.JFrame {
                 "DNI", "Nombre y Apellido", "Edad", "Curso"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         btnbuscar.setText("Buscar");
@@ -67,6 +72,11 @@ public class vistaPantallaAlumno extends javax.swing.JFrame {
         });
 
         btnmodificar.setText("Modificar");
+        btnmodificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnmodificarActionPerformed(evt);
+            }
+        });
 
         btnelimiar.setText("Eliminar");
 
@@ -144,9 +154,27 @@ public class vistaPantallaAlumno extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregarActionPerformed
+        
         vistaPantallaAgregarAlumno nuevo = new vistaPantallaAgregarAlumno();
+        nuevo.setAccion("Boton Agregar");
         nuevo.setVisible(true);
+        this.setVisible(false);
+        
     }//GEN-LAST:event_btnagregarActionPerformed
+
+    private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
+        vistaPantallaAgregarAlumno modificar = new vistaPantallaAgregarAlumno();
+        modificar.setAccion("Boton Modificar");
+        modificar.btnAceptar.setText("ACTUALIZAR");
+        modificar.setCodigo(codigo);
+        modificar.setVisible(true);
+        
+    }//GEN-LAST:event_btnmodificarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        codigo = Integer.parseInt(modelo.getValueAt( jTable1.getSelectedRow(),0).toString());
+        
+    }//GEN-LAST:event_jTable1MouseClicked
 
    
 

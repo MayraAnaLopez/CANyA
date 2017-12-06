@@ -57,10 +57,56 @@ public ArrayList<Alumno> ListaAlumno(){//creamos un metodo para obtener la lista
         return ListaAlumno;
     }
 
+public void Agregar(Alumno alumno){
+    try {
+        pst=ConexAlumno.getcon().prepareStatement("insert into alumno (dni_alumno,nombre, edad, id_curso) values (?,?,?,?) ");
+        pst.setInt(1, alumno.getDNI_Alumno());
+        pst.setString(2, alumno.getNombre());
+        pst.setByte(3, alumno.getEdad());
+        pst.setString(4, alumno.getId_Curso());
+        pst.execute();
+        pst.close();
+       
+        
+    } catch (SQLException ex) {
+        Logger.getLogger(admCurso.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+}
 
-
-
-
+public void modificar(Alumno alumno){
+    try {
+        pst=ConexAlumno.getcon().prepareStatement("update alumno set dni_alumno=?, nombre=?, edad=?, id_curso=? where dni_alumno="+ alumno.getDNI_Alumno());
+        pst.setInt(1, alumno.getDNI_Alumno());
+        pst.setString(2, alumno.getNombre());
+        pst.setByte(3, alumno.getEdad());
+        pst.setString(4, alumno.getId_Curso());
+        pst.execute();
+        pst.close();
+        
+    } catch (SQLException ex) {
+        Logger.getLogger(admCurso.class.getName()).log(Level.SEVERE, null, ex);
+    }
+   
+}
+public Alumno ObtenerAlumno(int dni_alumno){//creamos un metodo para obtener la lista de curso de la base de datos
+        Alumno alumno= new Alumno();
+    try {
+        st = ConexAlumno.getcon().createStatement();// obtenemos los datos de coneccion
+        rs = st.executeQuery("SELECT * FROM alumno where dni_alumno = "+ dni_alumno);// consulta a la base de datos
+        while (rs.next()){
+        alumno.setDNI_Alumno(rs.getInt(1)); 
+        alumno.setNombre (rs.getString(2));
+        alumno.setEdad(rs.getByte(3));
+        alumno.setId_Curso(String.valueOf(rs.getInt(4)));
+        
+        }
+        
+        } catch (SQLException ex) {
+        Logger.getLogger(admCurso.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return alumno;
+}
 
 
 
